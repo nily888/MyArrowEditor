@@ -7,6 +7,7 @@ package cleanuptables;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import db.MyArrowDB;
 import parcour.ParcourSpeicher;
@@ -53,23 +54,23 @@ public class CleanupTables {
      * @return
      *      List of GID, which are double (GID, GID, Name)
      */
-    public String[][] getWorklist(String table) {
-        String[][] getWorklist = null;
+    public ArrayList<String[]> getWorklist(String table) {
+        ArrayList<String[]> getWorklist = null;
         switch(table) {
             case "parcour":
-                getWorklist = new ParcourSpeicher().checkForDuplicates().clone(); 
+                // getWorklist = new ParcourSpeicher().checkForDuplicates(); 
                 break;
             case "bogen":
-                getWorklist = new BogenSpeicher().checkForDuplicates().clone(); 
+                getWorklist = new BogenSpeicher().checkForDuplicates(); 
                 break;
             case "pfeil":
-                getWorklist = new PfeilSpeicher().checkForDuplicates().clone(); 
+                // getWorklist = new PfeilSpeicher().checkForDuplicates().clone(); 
                 break;
             case "schuetzen":
-                getWorklist = new SchuetzenSpeicher().checkForDuplicates().clone(); 
+                // getWorklist = new SchuetzenSpeicher().checkForDuplicates().clone(); 
                 break;
             case "ziel":
-                getWorklist = new ZielSpeicher().checkForDuplicates().clone(); 
+                // getWorklist = new ZielSpeicher().checkForDuplicates().clone(); 
                 break;
             default:
                 System.err.println("System: GetWockList(): tablename could not be mapped!");

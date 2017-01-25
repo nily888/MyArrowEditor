@@ -10,6 +10,8 @@ package myarroweditor;
  */
 import cleanuptables.CleanupTables;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author rdueber
@@ -65,10 +67,18 @@ public class MyArrowEditor extends javax.swing.JFrame {
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             // System.out.println("System: jList1(): selected table - ");
-            String[] strings = new CleanupTables().getWorklist("bogen")[][3].clone();
+            ArrayList<String[]> tempArray = new CleanupTables().getWorklist("bogen");
             // String [] strings = new String[] { "Eins", "Zwei", "Drei"};
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            // public int getSize() { return strings.length; }
+            // public String getElementAt(int i) { return strings[i]; }
+            public int getSize() {
+                System.out.println("System: jList1(): array length - " + tempArray.size());
+                return tempArray.size();
+            }
+            public String getElementAt(int i) {
+                System.out.println("System: jList1(): array item - " + i);
+                return tempArray.get(i)[2];
+            }
         });
         jScrollPane1.setViewportView(jList1);
 

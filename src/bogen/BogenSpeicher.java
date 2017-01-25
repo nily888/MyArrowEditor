@@ -3,6 +3,7 @@ package bogen;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import db.MyArrowDB;
 import java.sql.ResultSet;
@@ -176,13 +177,12 @@ public class BogenSpeicher {
     /**
      * Check for duplicate entries based only on the name
      */
-    public String[][] checkForDuplicates() {
+    public ArrayList<String[]> checkForDuplicates() {
         PreparedStatement queryData1;
         PreparedStatement queryData2;
         ResultSet rs1 = null;
         ResultSet rs2 = null;
-        String[][] checkForDuplicates = null;
-        int n=0;
+        ArrayList<String[]> checkForDuplicates = null;
         queryData1 = null;
         queryData2 = null;
         try {
@@ -195,7 +195,7 @@ public class BogenSpeicher {
              */
             if (!rs1.first()) {
                 System.err.println("System: checkForDuplicates(): No records found!!");
-                checkForDuplicates = new String[][] {{"0", "0", "No records found!!"}}.clone();
+                checkForDuplicates.add(new String[] {"0", "0", "No records found!!"});
                 return checkForDuplicates;
             }
             
@@ -205,20 +205,24 @@ public class BogenSpeicher {
                  * Search for the same name
                  */
                 queryData2 = mDb.prepareStatement(BogenTbl.STMT_WHERE_GID_NAME_NAME_EQUALS);
-                queryData1.setString(1, rs1.getString(BogenTbl.NAME));
+                System.out.println("System: checkForDuplicates(): BogenTbl.NAME - " + rs1.getString(BogenTbl.NAME));
+                queryData2.setString(1, rs1.getString(BogenTbl.NAME));
+                System.out.println("System: checkForDuplicates(): SQL - " + queryData2.toString());
                 rs2 = queryData2.executeQuery();
+                System.out.println("System: checkForDuplicates(): SQL executed - " + rs2.toString());
 
                 /**
                 * check if something was found and store it
                 */
-                if (rs1.first()) {
-                    checkForDuplicates[n] = new String[] {rs1.getString(BogenTbl.GID), rs2.getString(BogenTbl.GID), rs2.getString(BogenTbl.NAME)};
-                    n++;
+                if (rs2.first()) {
+                    System.out.println("System: checkForDuplicates(): add array - " + rs1.getString(BogenTbl.GID) + "-" + rs2.getString(BogenTbl.GID) + "-" + rs2.getString(BogenTbl.NAME));
+                    checkForDuplicates.add(new String[] {rs1.getString(BogenTbl.GID), rs2.getString(BogenTbl.GID), rs2.getString(BogenTbl.NAME)});
                 }
                 
                 /*
                 * close recordset 2 and to the next record
                 */
+                System.out.println("System: checkForDuplicates(): close RST2");
                 rs2.close();
                 queryData2.close();
                 rs1.next();
