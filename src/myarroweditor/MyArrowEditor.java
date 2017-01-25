@@ -8,7 +8,7 @@ package myarroweditor;
 /**
  * The link to the MyArrow database
  */
-import com.example.rene.myarrow.server.cleanuptables.CleanupTables;
+import cleanuptables.CleanupTables;
 
 /**
  *
@@ -65,7 +65,7 @@ public class MyArrowEditor extends javax.swing.JFrame {
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             // System.out.println("System: jList1(): selected table - ");
-            String[] strings = new CleanupTables().getWorklist("bogen")[3];
+            String[] strings = new CleanupTables().getWorklist("bogen")[][3].clone();
             // String [] strings = new String[] { "Eins", "Zwei", "Drei"};
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
