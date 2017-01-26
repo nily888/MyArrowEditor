@@ -58,7 +58,7 @@ public class MyArrowEditor extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setText("MyArrow - Datenbrowser");
 
-        jcCheckTable.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bogen", "Pfeil", "Runden", "Rundenziel", "RundenSchuetzen", "Ziel", "Parcour", " " }));
+        jcCheckTable.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bogen", "Pfeil", "Ziel", "Parcour", " " }));
         jcCheckTable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcCheckTableActionPerformed(evt);
@@ -66,15 +66,16 @@ public class MyArrowEditor extends javax.swing.JFrame {
         });
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            // System.out.println("System: jList1(): selected table - ");
+            String strTable = (String)jcCheckTable.getSelectedItem();
+            System.out.println(strTable);
+            System.out.println("System: jList1(): selected table - " + strTable);
             ArrayList<String[]> tempArray = new CleanupTables().getWorklist("bogen");
-            // String [] strings = new String[] { "Eins", "Zwei", "Drei"};
-            // public int getSize() { return strings.length; }
-            // public String getElementAt(int i) { return strings[i]; }
+
             public int getSize() {
                 System.out.println("System: jList1(): array length - " + tempArray.size());
                 return tempArray.size();
             }
+
             public String getElementAt(int i) {
                 System.out.println("System: jList1(): array item - " + i);
                 return tempArray.get(i)[2];

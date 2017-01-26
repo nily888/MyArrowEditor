@@ -182,7 +182,7 @@ public class BogenSpeicher {
         PreparedStatement queryData2;
         ResultSet rs1 = null;
         ResultSet rs2 = null;
-        ArrayList<String[]> checkForDuplicates = null;
+        ArrayList<String[]> checkForDuplicates = new ArrayList<String[]>();
         queryData1 = null;
         queryData2 = null;
         try {
@@ -207,6 +207,7 @@ public class BogenSpeicher {
                 queryData2 = mDb.prepareStatement(BogenTbl.STMT_WHERE_GID_NAME_NAME_EQUALS);
                 System.out.println("System: checkForDuplicates(): BogenTbl.NAME - " + rs1.getString(BogenTbl.NAME));
                 queryData2.setString(1, rs1.getString(BogenTbl.NAME));
+                queryData2.setString(2, rs1.getString(BogenTbl.GID));
                 System.out.println("System: checkForDuplicates(): SQL - " + queryData2.toString());
                 rs2 = queryData2.executeQuery();
                 System.out.println("System: checkForDuplicates(): SQL executed - " + rs2.toString());
@@ -216,7 +217,9 @@ public class BogenSpeicher {
                 */
                 if (rs2.first()) {
                     System.out.println("System: checkForDuplicates(): add array - " + rs1.getString(BogenTbl.GID) + "-" + rs2.getString(BogenTbl.GID) + "-" + rs2.getString(BogenTbl.NAME));
-                    checkForDuplicates.add(new String[] {rs1.getString(BogenTbl.GID), rs2.getString(BogenTbl.GID), rs2.getString(BogenTbl.NAME)});
+                    String[] tempArray = new String[] {rs1.getString(BogenTbl.GID), rs2.getString(BogenTbl.GID), rs2.getString(BogenTbl.NAME)};
+                    System.out.println("System: checkForDuplicates(): add array - " + tempArray[0] + "-" + tempArray[1] + "-" + tempArray[2]);
+                    checkForDuplicates.add(tempArray.clone());
                 }
                 
                 /*
