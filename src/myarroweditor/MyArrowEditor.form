@@ -44,7 +44,7 @@
               <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jScrollPane1" min="-2" pref="1031" max="-2" attributes="0"/>
-                  <Component id="jcCheckTable" min="-2" max="-2" attributes="0"/>
+                  <Component id="comboTable" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" pref="927" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -57,7 +57,7 @@
               <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-              <Component id="jcCheckTable" min="-2" max="-2" attributes="0"/>
+              <Component id="comboTable" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="510" max="-2" attributes="0"/>
               <EmptySpace pref="71" max="32767" attributes="0"/>
@@ -74,7 +74,7 @@
         <Property name="text" type="java.lang.String" value="MyArrow - Datenbrowser"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jcCheckTable">
+    <Component class="javax.swing.JComboBox" name="comboTable">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="5">
@@ -82,12 +82,12 @@
             <StringItem index="1" value="Pfeil"/>
             <StringItem index="2" value="Ziel"/>
             <StringItem index="3" value="Parcour"/>
-            <StringItem index="4" value=" "/>
+            <StringItem index="4" value="Schuetzen"/>
           </StringArray>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcCheckTableActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboTableActionPerformed"/>
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -101,11 +101,6 @@
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
         <Component class="javax.swing.JList" name="jList1">
-          <Properties>
-            <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new javax.swing.AbstractListModel&lt;String&gt;() {&#xa;    String strTable = (String)jcCheckTable.getSelectedItem();&#xa;    System.out.println(strTable);&#xa;    System.out.println(&quot;System: jList1(): selected table - &quot; + strTable);&#xa;    ArrayList&lt;String[]&gt; tempArray = new CleanupTables().getWorklist(&quot;bogen&quot;);&#xa;&#xa;    public int getSize() {&#xa;        System.out.println(&quot;System: jList1(): array length - &quot; + tempArray.size());&#xa;        return tempArray.size();&#xa;    }&#xa;&#xa;    public String getElementAt(int i) {&#xa;        System.out.println(&quot;System: jList1(): array item - &quot; + i);&#xa;        return tempArray.get(i)[2];&#xa;    }&#xa;}" type="code"/>
-            </Property>
-          </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>

@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import java.util.ArrayList;
+
 /**
  * Created by nily on 15.12.15.
  */
@@ -165,16 +167,16 @@ public class ParcourSpeicher {
      /**
      * Check for duplicate entries based only on the name
      */
-    public String[][] checkForDuplicates() {
+    public ArrayList<String[]> checkForDuplicates() {
         PreparedStatement queryData1;
         PreparedStatement queryData2;
         ResultSet rs1 = null;
         ResultSet rs2 = null;
-        String[][] checkForDuplicates = null;
-        int n=0;
+        ArrayList<String[]> checkForDuplicates = new ArrayList<String[]>();
         queryData1 = null;
         queryData2 = null;
         try {
+            System.out.println(ParcourTbl.STMT_WHERE_GID_NAME_EQUALS);
             queryData1 = mDb.prepareStatement(ParcourTbl.STMT_WHERE_GID_NAME_EQUALS);
             rs1 = queryData1.executeQuery();
             
@@ -183,7 +185,8 @@ public class ParcourSpeicher {
              */
             if (!rs1.first()) {
                 System.err.println("System: checkForDuplicates(): No records found!!");
-                return null;
+                checkForDuplicates.add(new String[] {"0", "0", "No records found!!"});
+                return checkForDuplicates;
             }
             
             while (!rs1.isAfterLast()) {
@@ -192,22 +195,24 @@ public class ParcourSpeicher {
                  * Search for the same name
                  */
                 queryData2 = mDb.prepareStatement(ParcourTbl.STMT_WHERE_GID_NAME_NAME_EQUALS);
-                queryData1.setString(1, rs1.getString(ParcourTbl.NAME));
+                queryData2.setString(1, rs1.getString(ParcourTbl.NAME));
+                queryData2.setString(2, rs1.getString(ParcourTbl.GID));
                 rs2 = queryData2.executeQuery();
 
                 /**
                 * check if something was found and store it
                 */
-                if (rs1.first()) {
-                    checkForDuplicates[n][1] = rs1.getString(ParcourTbl.GID);
-                    checkForDuplicates[n][2] = rs2.getString(ParcourTbl.GID);
-                    checkForDuplicates[n][3] = rs2.getString(ParcourTbl.NAME);
-                    n++;
+                if (rs2.first()) {
+                    System.out.println("System: checkForDuplicates(): add array - " + rs1.getString(ParcourTbl.GID) + "-" + rs2.getString(ParcourTbl.GID) + "-" + rs2.getString(ParcourTbl.NAME));
+                    String[] tempArray = new String[] {rs1.getString(ParcourTbl.GID), rs2.getString(ParcourTbl.GID), rs2.getString(ParcourTbl.NAME)};
+                    System.out.println("System: checkForDuplicates(): add array - " + tempArray[0] + "-" + tempArray[1] + "-" + tempArray[2]);
+                    checkForDuplicates.add(tempArray.clone());
                 }
                 
                 /*
                 * close recordset 2 and to the next record
                 */
+                System.out.println("System: checkForDuplicates(): close RST2");
                 rs2.close();
                 queryData2.close();
                 rs1.next();

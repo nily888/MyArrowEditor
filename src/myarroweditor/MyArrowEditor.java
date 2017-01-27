@@ -10,6 +10,8 @@ package myarroweditor;
  */
 import cleanuptables.CleanupTables;
 
+import javax.swing.DefaultListModel;
+
 import java.util.ArrayList;
 
 /**
@@ -38,7 +40,7 @@ public class MyArrowEditor extends javax.swing.JFrame {
 
         jDialog1 = new javax.swing.JDialog();
         jLabel1 = new javax.swing.JLabel();
-        jcCheckTable = new javax.swing.JComboBox<>();
+        comboTable = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
 
@@ -58,29 +60,13 @@ public class MyArrowEditor extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setText("MyArrow - Datenbrowser");
 
-        jcCheckTable.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bogen", "Pfeil", "Ziel", "Parcour", " " }));
-        jcCheckTable.addActionListener(new java.awt.event.ActionListener() {
+        comboTable.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bogen", "Pfeil", "Ziel", "Parcour", "Schuetzen" }));
+        comboTable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcCheckTableActionPerformed(evt);
+                comboTableActionPerformed(evt);
             }
         });
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String strTable = (String)jcCheckTable.getSelectedItem();
-            System.out.println(strTable);
-            System.out.println("System: jList1(): selected table - " + strTable);
-            ArrayList<String[]> tempArray = new CleanupTables().getWorklist("bogen");
-
-            public int getSize() {
-                System.out.println("System: jList1(): array length - " + tempArray.size());
-                return tempArray.size();
-            }
-
-            public String getElementAt(int i) {
-                System.out.println("System: jList1(): array item - " + i);
-                return tempArray.get(i)[2];
-            }
-        });
         jScrollPane1.setViewportView(jList1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -91,7 +77,7 @@ public class MyArrowEditor extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1031, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcCheckTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 927, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -101,7 +87,7 @@ public class MyArrowEditor extends javax.swing.JFrame {
                 .addGap(63, 63, 63)
                 .addComponent(jLabel1)
                 .addGap(30, 30, 30)
-                .addComponent(jcCheckTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(comboTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(71, Short.MAX_VALUE))
@@ -110,9 +96,20 @@ public class MyArrowEditor extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jcCheckTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcCheckTableActionPerformed
+    private void comboTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTableActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jcCheckTableActionPerformed
+        DefaultListModel model = new DefaultListModel();
+        String strTable = (String)comboTable.getSelectedItem();
+        ArrayList<String[]> tempArray = new CleanupTables().getWorklist(strTable);
+        for (int n=0; n < tempArray.size(); n++) {
+            model.addElement(
+                    String.format("%1$-50s", tempArray.get(n)[0]) + " | " +
+                    String.format("%1$-50s", tempArray.get(n)[1]) + " | " +
+                    String.format("%1$-80s", tempArray.get(n)[2])
+            );
+        }
+        jList1.setModel(model);
+    }//GEN-LAST:event_comboTableActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,10 +150,10 @@ public class MyArrowEditor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> comboTable;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JComboBox<String> jcCheckTable;
     // End of variables declaration//GEN-END:variables
 }

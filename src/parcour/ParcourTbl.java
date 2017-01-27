@@ -141,7 +141,7 @@ public class ParcourTbl implements ParcourColumns {
     public static final String STMT_WHERE_GID_NAME_NAME_EQUALS  =
             "select " + ID   + ", " + GID + ", " + NAME + " " +
             "from " + TABLE_NAME + " " +
-            "where " + NAME + "=?";
+            "where " + NAME + "=? and " + GID + ">? order by " + GID;
     
     /**
      * Klasse enthaelt nur Konstanten.
