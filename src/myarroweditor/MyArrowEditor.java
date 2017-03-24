@@ -9,16 +9,21 @@ package myarroweditor;
  * The link to the MyArrow database
  */
 import cleanuptables.CleanupTables;
+import updatemobile.UpdateMobileSpeicher;
 
 import javax.swing.DefaultListModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
- * @author rdueber
+ * @author René Düber
  */
 public class MyArrowEditor extends javax.swing.JFrame {
+
+    
+    ArrayList<String[]> update_mobile = new ArrayList();
 
     /**
      * Creates new form ContactEditor
@@ -43,6 +48,8 @@ public class MyArrowEditor extends javax.swing.JFrame {
         comboTable = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
+        jUpdate = new javax.swing.JButton();
+        jCancel = new javax.swing.JButton();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -69,28 +76,53 @@ public class MyArrowEditor extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(jList1);
 
+        jUpdate.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        jUpdate.setText("Update");
+        jUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jUpdateMouseClicked(evt);
+            }
+        });
+
+        jCancel.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        jCancel.setText("Cancel");
+        jCancel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jCancelMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1031, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 927, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1031, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(comboTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 927, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(63, 63, 63)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(comboTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -99,7 +131,7 @@ public class MyArrowEditor extends javax.swing.JFrame {
     private void comboTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTableActionPerformed
         // TODO add your handling code here:
         DefaultListModel model = new DefaultListModel();
-        String strTable = (String)comboTable.getSelectedItem();
+        String strTable = (String) comboTable.getSelectedItem();
         ArrayList<String[]> tempArray = new CleanupTables().getWorklist(strTable);
         for (int n=0; n < tempArray.size(); n++) {
             model.addElement(
@@ -110,6 +142,39 @@ public class MyArrowEditor extends javax.swing.JFrame {
         }
         jList1.setModel(model);
     }//GEN-LAST:event_comboTableActionPerformed
+
+    private void jCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCancelMouseClicked
+        // TODO add your handling code here:
+        // this will hide and dispose the frame, so that the application quits by
+        // itself if there is nothing else around. 
+        setVisible(false);
+        dispose();
+        // if you have other similar frames around, you should dispose them, too.
+        System.out.println("System: jCancelMouseClicked(): MyArrowEditor will be closed and shutdown !!");
+        System.out.println("=====================================================================");
+        // finally, call this to really exit. 143446
+        // i/o libraries such as WiiRemoteJ need this. 
+        // also, this is what swing does for JFrame.EXIT_ON_CLOSE
+        System.exit(0);
+    }//GEN-LAST:event_jCancelMouseClicked
+
+    private void jUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jUpdateMouseClicked
+        // TODO add your handling code here:
+        String strLine;
+        String[] strElement;
+        String strTable = (String) comboTable.getSelectedItem();
+        List<String> aSelected =  new ArrayList<String>();
+        aSelected = jList1.getSelectedValuesList();
+        for (int n=0; n < aSelected.size();n++){
+            new UpdateMobileSpeicher().insertUpdateMobile(
+                    aSelected.get(n).split("|")[0],
+                    aSelected.get(n).split("|")[1],
+                    aSelected.get(n).split("|")[2],
+                    aSelected.get(n).split("|")[3]
+                );
+        }
+        comboTable.setSelectedIndex(0);
+    }//GEN-LAST:event_jUpdateMouseClicked
 
     /**
      * @param args the command line arguments
@@ -151,9 +216,11 @@ public class MyArrowEditor extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> comboTable;
+    private javax.swing.JButton jCancel;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jUpdate;
     // End of variables declaration//GEN-END:variables
 }

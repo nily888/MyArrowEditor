@@ -243,7 +243,7 @@ public class BogenSpeicher {
             System.err.println("System: checkForDuplicates(): " + ex);
             if (mDb != null) {
                 try {
-                    System.out.print("System: checkForDuplicates(): Transaction is being rolled back");
+                    System.out.println("System: checkForDuplicates(): Transaction is being rolled back");
                     mDb.rollback();
                 } catch(SQLException excep) {
                     System.err.print(excep);
@@ -252,13 +252,13 @@ public class BogenSpeicher {
             return null;   
         } finally {
             try {
-                System.out.print("System: checkForDuplicates: Alles wird geschlossen");
+                System.out.println("System: checkForDuplicates: Alles wird geschlossen");
                 if (rs1 != null) rs1.close();
                 if (rs2 != null) rs2.close();
                 if (queryData1 != null) queryData1.close();
                 if (queryData2 != null) queryData2.close();
             } catch(SQLException excep) {
-                System.err.print("System: checkForDuplicates(): " + excep);
+                System.err.println("System: checkForDuplicates(): " + excep);
             }
         }
     }
