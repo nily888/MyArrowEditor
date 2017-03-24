@@ -186,7 +186,7 @@ public class BogenSpeicher {
         queryData1 = null;
         queryData2 = null;
         try {
-            System.out.println(BogenTbl.STMT_WHERE_GID_NAME_EQUALS);
+            System.out.println("System: checkForDuplicates(): " + BogenTbl.STMT_WHERE_GID_NAME_EQUALS);
             queryData1 = mDb.prepareStatement(BogenTbl.STMT_WHERE_GID_NAME_EQUALS);
             rs1 = queryData1.executeQuery();
             

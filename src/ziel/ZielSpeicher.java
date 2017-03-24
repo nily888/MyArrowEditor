@@ -222,7 +222,7 @@ public class ZielSpeicher {
         queryData1 = null;
         queryData2 = null;
         try {
-            System.out.println(ZielTbl.STMT_WHERE_GID_NAME_EQUALS);
+            System.out.println("System: checkForDuplicates(): " + ZielTbl.STMT_WHERE_GID_NAME_EQUALS);
             queryData1 = mDb.prepareStatement(ZielTbl.STMT_WHERE_GID_NAME_EQUALS);
             rs1 = queryData1.executeQuery();
             

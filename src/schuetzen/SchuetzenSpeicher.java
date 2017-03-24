@@ -186,7 +186,7 @@ public class SchuetzenSpeicher {
         queryData1 = null;
         queryData2 = null;
         try {
-            System.out.println(SchuetzenTbl.STMT_WHERE_GID_NAME_EQUALS);
+            System.out.println("System: checkForDuplicates(): " + SchuetzenTbl.STMT_WHERE_GID_NAME_EQUALS);
             queryData1 = mDb.prepareStatement(SchuetzenTbl.STMT_WHERE_GID_NAME_EQUALS);
             rs1 = queryData1.executeQuery();
             
