@@ -135,8 +135,8 @@ public class MyArrowEditor extends javax.swing.JFrame {
         ArrayList<String[]> tempArray = new CleanupTables().getWorklist(strTable);
         for (int n=0; n < tempArray.size(); n++) {
             model.addElement(
-                    String.format("%1$-50s", tempArray.get(n)[0]) + " | " +
-                    String.format("%1$-50s", tempArray.get(n)[1]) + " | " +
+                    String.format("%1$-50s", tempArray.get(n)[0]) + "-" +
+                    String.format("%1$-50s", tempArray.get(n)[1]) + "-" +
                     String.format("%1$-80s", tempArray.get(n)[2])
             );
         }
@@ -160,17 +160,21 @@ public class MyArrowEditor extends javax.swing.JFrame {
 
     private void jUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jUpdateMouseClicked
         // TODO add your handling code here:
-        String strLine;
         String[] strElement;
         String strTable = (String) comboTable.getSelectedItem();
         List<String> aSelected =  new ArrayList<String>();
         aSelected = jList1.getSelectedValuesList();
         for (int n=0; n < aSelected.size();n++){
+            strElement = aSelected.get(n).split("-");
+            System.out.println("System: jUpdateMouseClicked(): Line      - " + aSelected.get(n).trim());
+            System.out.println("System: jUpdateMouseClicked(): Tablename - " + strTable);
+            System.out.println("System: jUpdateMouseClicked(): old GID   - " + strElement[0].trim());
+            System.out.println("System: jUpdateMouseClicked(): new GID   - " + strElement[1].trim());
             new UpdateMobileSpeicher().insertUpdateMobile(
-                    aSelected.get(n).split("|")[0],
-                    aSelected.get(n).split("|")[1],
-                    aSelected.get(n).split("|")[2],
-                    aSelected.get(n).split("|")[3]
+                    strTable,
+                    "FIELDNAME",
+                    strElement[0],
+                    strElement[1]
                 );
         }
         comboTable.setSelectedIndex(0);

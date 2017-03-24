@@ -49,12 +49,15 @@ public class UpdateMobileSpeicher {
              * Datensatz einfügen
              */
             System.out.println("System: insertUpdateMobile(): Datensatz einfügen");
+            System.out.println("System: insertUpdateMobile(): TableName - " + tablename);
+            System.out.println("System: insertUpdateMobile(): FieldName - " + fieldname);
+            System.out.println("System: insertUpdateMobile(): old GID   - " + old_gid);
+            System.out.println("System: insertUpdateMobile(): new GID   - " + new_gid);
             insertData = mDb.prepareStatement(UpdateMobileTbl.STMT_INSERT);
             insertData.setString(1, tablename);
             insertData.setString(2, fieldname);
             insertData.setString(3, old_gid);
             insertData.setString(4, new_gid);
-            insertData.setInt(5, 0);
             insertData.executeUpdate();
             mDb.commit();
         } catch (SQLException ex) {
