@@ -10,6 +10,7 @@ package myarroweditor;
  */
 import cleanuptables.CleanupTables;
 import updatemobile.UpdateMobileSpeicher;
+import mappinggid.MappingGIDSpeicher;
 
 import javax.swing.DefaultListModel;
 
@@ -163,6 +164,7 @@ public class MyArrowEditor extends javax.swing.JFrame {
         String[] strElement;
         String strTable = (String) comboTable.getSelectedItem();
         List<String> aSelected =  new ArrayList<String>();
+        ArrayList<String[]> mapping = null;
         aSelected = jList1.getSelectedValuesList();
         for (int n=0; n < aSelected.size();n++){
             strElement = aSelected.get(n).split("-");
@@ -170,12 +172,17 @@ public class MyArrowEditor extends javax.swing.JFrame {
             System.out.println("System: jUpdateMouseClicked(): Tablename - " + strTable);
             System.out.println("System: jUpdateMouseClicked(): old GID   - " + strElement[0].trim());
             System.out.println("System: jUpdateMouseClicked(): new GID   - " + strElement[1].trim());
-            new UpdateMobileSpeicher().insertUpdateMobile(
-                    strTable,
-                    "FIELDNAME",
-                    strElement[0],
-                    strElement[1]
-                );
+            mapping = new MappingGIDSpeicher().loadMappingGIDDetails(strTable);
+            for (int m=0; m< mapping.size(); m++) {
+                
+                new UpdateMobileSpeicher().insertUpdateMobile(
+                        mapping.get(m)[0],
+                        mapping.get(m)[1],
+                        strElement[0],
+                        strElement[1]
+                    );
+            }
+            mapping = null;
         }
         comboTable.setSelectedIndex(0);
     }//GEN-LAST:event_jUpdateMouseClicked
