@@ -11,6 +11,7 @@ package myarroweditor;
 import cleanuptables.CleanupTables;
 import updatemobile.UpdateMobileSpeicher;
 import mappinggid.MappingGIDSpeicher;
+import db.MyArrowDB;
 
 import javax.swing.DefaultListModel;
 
@@ -162,6 +163,7 @@ public class MyArrowEditor extends javax.swing.JFrame {
     private void jUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jUpdateMouseClicked
         // TODO add your handling code here:
         String[] strElement;
+        String strSQL;
         String strTable = (String) comboTable.getSelectedItem();
         List<String> aSelected =  new ArrayList<String>();
         ArrayList<String[]> mapping = null;
@@ -169,14 +171,26 @@ public class MyArrowEditor extends javax.swing.JFrame {
         for (int n=0; n < aSelected.size();n++){
             strElement = aSelected.get(n).split("-");
             System.out.println("System: jUpdateMouseClicked(): Line      - " + aSelected.get(n).trim());
-            System.out.println("System: jUpdateMouseClicked(): Tablename - " + strTable);
+            System.out.println("System: jUpdateMouseClicked(): Tablename - " + strTable.toLowerCase());
             System.out.println("System: jUpdateMouseClicked(): old GID   - " + strElement[0].trim());
             System.out.println("System: jUpdateMouseClicked(): new GID   - " + strElement[1].trim());
             mapping = new MappingGIDSpeicher().loadMappingGIDDetails(strTable);
             for (int m=0; m< mapping.size(); m++) {
                 
-                Update der lokalen Tabellen fehlt noch
+                if (strTable.toLowerCase().equals(mapping.get(m)[0].toLowerCase())) {
+                    strSQL = "delete from " + mapping.get(m)[0].trim() + " " +
+                             "where " + mapping.get(m)[1].trim() + "=" + strElement[0].trim() + ";";
+                } else {
+                    strSQL = "update " + mapping.get(m)[0].trim() + " " +
+                             "set " + mapping.get(m)[1].trim() + "=" + strElement[1].trim() + " " +
+                             "where " + mapping.get(m)[1].trim() + "=" + strElement[0].trim() + ";";
+                }
+                System.out.println("System: jUpdateMouseClicked(): strSQL    - " + strSQL);
+                new MyArrowDB().executeSQL(strSQL);
                 
+                /**
+                 * Entry to update the mobile phones
+                 */
                 new UpdateMobileSpeicher().insertUpdateMobile(
                         mapping.get(m)[0],
                         mapping.get(m)[1],
