@@ -199,7 +199,7 @@ public class MyArrowEditor extends javax.swing.JFrame {
                 try {
                     ResultSet rs = new ClientsSpeicher().getClientListe();
                     if (!rs.isAfterLast()) rs.first();
-                    System.out.println("System: jUpdateMouseClicked(): DeviceID - " + rs.getString(0));
+                    System.out.println("System: jUpdateMouseClicked(): DeviceID - " + rs.getString(ClientsTbl.DEVICEID));
                     while (!rs.isAfterLast()) {
                         new UpdateMobileSpeicher().insertUpdateMobile(
                             rs.getString(ClientsTbl.DEVICEID),
