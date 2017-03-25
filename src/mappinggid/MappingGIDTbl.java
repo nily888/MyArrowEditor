@@ -84,10 +84,10 @@ public class MappingGIDTbl implements MappingGIDColumns {
     public static final String STMT_WHERE_ORIGTABLE_EQUALS  =
             "select " + 
                 ID   + ", " + 
-                ORIGTABLE + ", " + 
                 TABLENAME + ", " +
                 FIELDNAME + " " +
-            "from " + TABLE_NAME;
+            "from " + TABLE_NAME + " " +
+            "where " + ORIGTABLE + "=?" ;
     
     /**
      * Klasse enthaelt nur Konstanten.
