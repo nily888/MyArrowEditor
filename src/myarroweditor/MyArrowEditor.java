@@ -9,7 +9,7 @@ package myarroweditor;
  * The link to the MyArrow database
  */
 import cleanuptables.CleanupTables;
-import clients.Clients;
+import clients.ClientsTbl;
 import updatemobile.UpdateMobileSpeicher;
 import mappinggid.MappingGIDSpeicher;
 import clients.ClientsSpeicher;
@@ -197,9 +197,10 @@ public class MyArrowEditor extends javax.swing.JFrame {
                  */
                 try {
                     ResultSet rs = new ClientsSpeicher().getClientListe();
+                    System.out.println("System: jUpdateMouseClicked(): DeviceID - " + rs.getString(0));
                     while (!rs.isAfterLast()) {
                         new UpdateMobileSpeicher().insertUpdateMobile(
-                            rs.getString(Clients.DEVICEID),
+                            rs.getString(ClientsTbl.DEVICEID),
                             mapping.get(m)[0].trim(),
                             mapping.get(m)[1].trim(),
                             strElement[0].trim(),
