@@ -193,10 +193,12 @@ public class MyArrowEditor extends javax.swing.JFrame {
                 new MyArrowDB().executeSQL(strSQL);
                 
                 /**
-                 * Entry to update the mobile phones
+                 * Entries to update the mobile phones
                  */
+                System.out.println("System: jUpdateMouseClicked(): Entry to update the mobile phones");
                 try {
                     ResultSet rs = new ClientsSpeicher().getClientListe();
+                    if (!rs.isAfterLast()) rs.first();
                     System.out.println("System: jUpdateMouseClicked(): DeviceID - " + rs.getString(0));
                     while (!rs.isAfterLast()) {
                         new UpdateMobileSpeicher().insertUpdateMobile(
