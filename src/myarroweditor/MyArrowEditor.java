@@ -9,14 +9,18 @@ package myarroweditor;
  * The link to the MyArrow database
  */
 import cleanuptables.CleanupTables;
+import clients.Clients;
 import updatemobile.UpdateMobileSpeicher;
 import mappinggid.MappingGIDSpeicher;
+import clients.ClientsSpeicher;
 import db.MyArrowDB;
 
 import javax.swing.DefaultListModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -191,15 +195,27 @@ public class MyArrowEditor extends javax.swing.JFrame {
                 /**
                  * Entry to update the mobile phones
                  */
-                new UpdateMobileSpeicher().insertUpdateMobile(
-                        mapping.get(m)[0],
-                        mapping.get(m)[1],
-                        strElement[0],
-                        strElement[1]
-                    );
+                try {
+                    ResultSet rs = new ClientsSpeicher().getClientListe();
+                    while (!rs.isAfterLast()) {
+                        new UpdateMobileSpeicher().insertUpdateMobile(
+                            rs.getString(Clients.DEVICEID),
+                            mapping.get(m)[0].trim(),
+                            mapping.get(m)[1].trim(),
+                            strElement[0].trim(),
+                            strElement[1].trim()
+                        );
+                        rs.next();
+                    }
+                    rs.close();
+                } catch (SQLException ex) {
+                    System.out.println("System: jUpdateMouseClicked(): Error Code    = " + ex.getErrorCode());
+                    System.out.println("System: jUpdateMouseClicked(): Error Message = " + ex.getMessage());
+                    System.err.println(ex);
+                }
             }
-            mapping = null;
         }
+        mapping = null;
         comboTable.setSelectedIndex(0);
     }//GEN-LAST:event_jUpdateMouseClicked
 

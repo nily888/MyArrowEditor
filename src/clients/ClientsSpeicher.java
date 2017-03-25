@@ -157,6 +157,28 @@ public class ClientsSpeicher {
         }
     }
 
+    public ResultSet getClientListe(){
+        
+        PreparedStatement queryData;
+        queryData = null;
+        try {
+            queryData = mDb.prepareStatement(ClientsTbl.STMT_WHERE_ALL_DEVICEIDS);
+            ResultSet rs = queryData.executeQuery();
+            return rs;
+        } catch (SQLException ex) {
+            System.err.println(ex);
+            if (mDb != null) {
+                try {
+                    System.out.print("System: insertClientListe(): Transaction is being rolled back");
+                    mDb.rollback();
+                } catch(SQLException excep) {
+                    System.err.print(excep);
+                }
+            }
+            return null;
+        }
+    }
+
     /**
      * Schliesst die zugrundeliegende Datenbank.
      * <br>

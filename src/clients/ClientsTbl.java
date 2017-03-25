@@ -60,6 +60,12 @@ public final class ClientsTbl implements ClientsColumns {
     public static final String WHERE_ID_EQUALS = ID + "=?";
 
     /**
+     * WHERE-Bedingung fuer alle DEVICEIDs
+     */
+    public static final String STMT_WHERE_ALL_DEVICEIDS = 
+            "select " + DEVICEID + " from " + TABLE_NAME;
+
+    /**
      * WHERE-Bedingung fuer DEVICEID-Anfrage.
      */
     public static final String STMT_WHERE_DEVICEID_EQUALS = 
