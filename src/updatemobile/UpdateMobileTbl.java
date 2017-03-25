@@ -34,15 +34,15 @@ public class UpdateMobileTbl  implements UpdateMobileColumns {
      * neuen Eintrages.
      */
     public static final String STMT_INSERT = "INSERT INTO "+ TABLE_NAME +
-            " (tablename, fieldname, old_gid, new_gid)" +
-            " VALUES (?,?,?,?)";
+            " (deviceid, tablename, fieldname, old_gid, new_gid)" +
+            " VALUES (?,?,?,?,?)";
 
     /**
      * SQL Anweisung fuer Aktualisierung eines
      * Eintrages.
      */
     public static final String STMT_UPDATE = "UPDATE "+ TABLE_NAME + " SET " +
-            " tablename=?, fieldname=?, old_gid=?, new_gid=?" +
+            " deviceid=?, tablename=?, fieldname=?, old_gid=?, new_gid=?" +
             " WHERE id=?";
     
     /**
@@ -53,6 +53,7 @@ public class UpdateMobileTbl  implements UpdateMobileColumns {
     /** Liste aller bekannten Attribute. */
     public static final String[] ALL_COLUMNS = new String[] {
             ID,
+            DEVICEID,
             TABLENAME,
             FIELDNAME,
             OLD_GID,
@@ -66,6 +67,7 @@ public class UpdateMobileTbl  implements UpdateMobileColumns {
     public static final String STMT_WHERE_ID_EQUALS = 
             "select " 
                 + ID          + ", "
+                + DEVICEID    + ", "
                 + TABLENAME   + ", "
                 + FIELDNAME   + ", "
                 + OLD_GID     + ", "

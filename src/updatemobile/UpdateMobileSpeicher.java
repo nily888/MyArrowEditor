@@ -36,6 +36,7 @@ public class UpdateMobileSpeicher {
      *
      */
     public void insertUpdateMobile(
+            String deviceid,
             String tablename,
             String fieldname,
             String old_gid,
@@ -49,15 +50,17 @@ public class UpdateMobileSpeicher {
              * Datensatz einfügen
              */
             System.out.println("System: insertUpdateMobile(): Datensatz einfügen");
+            System.out.println("System: insertUpdateMobile(): DeviceID  - " + deviceid);
             System.out.println("System: insertUpdateMobile(): TableName - " + tablename);
             System.out.println("System: insertUpdateMobile(): FieldName - " + fieldname);
             System.out.println("System: insertUpdateMobile(): old GID   - " + old_gid);
             System.out.println("System: insertUpdateMobile(): new GID   - " + new_gid);
             insertData = mDb.prepareStatement(UpdateMobileTbl.STMT_INSERT);
-            insertData.setString(1, tablename);
-            insertData.setString(2, fieldname);
-            insertData.setString(3, old_gid);
-            insertData.setString(4, new_gid);
+            insertData.setString(1, deviceid);
+            insertData.setString(2, tablename);
+            insertData.setString(3, fieldname);
+            insertData.setString(4, old_gid);
+            insertData.setString(5, new_gid);
             insertData.executeUpdate();
             mDb.commit();
         } catch (SQLException ex) {
@@ -123,6 +126,7 @@ public class UpdateMobileSpeicher {
      */
     public void insertUpdateMobile(UpdateMobile updatemobile) {
         insertUpdateMobile(
+                updatemobile.getDeviceID(),
                 updatemobile.getTableName(),
                 updatemobile.getFieldName(),
                 updatemobile.getoldGID(),
@@ -141,6 +145,7 @@ public class UpdateMobileSpeicher {
             if (rs.getRow() == 1) {
                 UpdateMobile loadUpdateMobileDetails = new UpdateMobile();
                 loadUpdateMobileDetails.setID(rs.getInt(UpdateMobileTbl.ID));
+                loadUpdateMobileDetails.setDeviceID(rs.getString(UpdateMobileTbl.DEVICEID));
                 loadUpdateMobileDetails.setTableName(rs.getString(UpdateMobileTbl.TABLENAME));
                 loadUpdateMobileDetails.setFieldName(rs.getString(UpdateMobileTbl.FIELDNAME));
                 loadUpdateMobileDetails.setoldGID(rs.getString(UpdateMobileTbl.OLD_GID));

@@ -13,6 +13,13 @@ public interface UpdateMobileColumns {
     String ID = "_id";
 
     /**
+     * Pflichtfeld: Mobile Device
+     *
+     * TEXT
+     */
+    String DEVICEID = "deviceid";
+
+    /**
      * Pflichtfeld: TableName
      *
      * TEXT

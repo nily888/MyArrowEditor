@@ -8,6 +8,7 @@ import updatemobile.*;
 public class UpdateMobile implements UpdateMobileColumns{
     public int id;
     public int transfered;
+    public String deviceid;
     public String tablename;
     public String fieldname;
     public String old_gid;
@@ -17,11 +18,13 @@ public class UpdateMobile implements UpdateMobileColumns{
   
     public UpdateMobile(
             final int id,
+            final String deviceid,
             final String tablename,
             final String fieldname,
             final String old_gid,
             final String new_gid) {
         this.id = id;
+        this.deviceid = deviceid;
         this.tablename = tablename;
         this.fieldname = fieldname;
         this.old_gid = old_gid;
@@ -36,6 +39,13 @@ public class UpdateMobile implements UpdateMobileColumns{
         this.id = id;
     }
 
+    public String getDeviceID(){
+        return deviceid;
+    }
+    public void setDeviceID(final String deviceid){
+        this.deviceid = deviceid;
+    }
+    
     public String getTableName(){
         return tablename;
     }
@@ -75,6 +85,7 @@ public class UpdateMobile implements UpdateMobileColumns{
     public String toString() {
         String toString = "table=updatemobile";
         toString += "&" + ID + "=" + String.valueOf(getID());
+        if (!getDeviceID().equals("")) toString += "&" + DEVICEID + "=" + getDeviceID();
         if (!getTableName().equals("")) toString += "&" + TABLENAME + "=" + getTableName();
         if (!getFieldName().equals("")) toString += "&" + FIELDNAME + "=" + getFieldName();
         if (!getoldGID().equals("")) toString += "&" + OLD_GID   + "=" + getoldGID();
