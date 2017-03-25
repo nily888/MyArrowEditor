@@ -19,7 +19,7 @@ public interface MappingGIDColumns {
      * 
      * STRING
      */
-    String ORGTABLE = "orgtable";
+    String ORIGTABLE = "orgtable";
 
     /**
      * Table where the forgein GID should be changed
