@@ -1,5 +1,6 @@
 package db;
 
+import bogen.BogenTbl;
 import java.sql.*;
 
 public class MyArrowDB {
@@ -34,7 +35,7 @@ public class MyArrowDB {
             sINSTANCE = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/myarrow?autoReconnect=true&useSSL=false",
                     "root",
-                    "%Satelindo1!" );
+                    "satelindo" );
             System.out.println("System: " + TAG + ": getConnection() - Done");
         } catch( SQLException sqlex ) {
             System.out.println("SQLException: " + sqlex.getMessage());
@@ -146,5 +147,59 @@ public class MyArrowDB {
             }                
         }
         return insertDataset;
-    }    
+    }
+    
+    public void executeSQL(String strSQL) {
+        PreparedStatement executeData = null;
+        Connection mDb=null;
+
+        try {
+            /**
+             * Link zur Datenbank holen
+             */
+            mDb = new MyArrowDB().getInstance();
+            executeData = mDb.prepareStatement(strSQL);
+            /**
+             * AutoCommit abschalten
+             */
+            mDb.setAutoCommit(false);
+            /**
+             * Datensatz einfügen
+             */
+            System.out.println("System: executeSQL(): Datensatz einfügen");
+            executeData.execute();
+            mDb.commit();
+            
+        } catch (SQLException ex) {
+            System.out.println("System: executeSQL(): " + executeData.toString());
+            System.err.println("System: executeSQL(): Error Code    = " + ex.getErrorCode());
+            System.err.println("System: executeSQL(): Error Message = " + ex.getMessage());
+            System.err.println("System: executeSQL(): " + ex);
+            if (mDb != null) {
+                try {
+                    System.err.print("System: executeSQL(): Transaction is being rolled back");
+                    mDb.rollback();
+                } catch(SQLException excep) {
+                    System.out.println("System: executeSQL(): Error Code    = " + excep.getErrorCode());
+                    System.out.println("System: executeSQL(): Error Message = " + excep.getMessage());
+                    System.err.println("System: executeSQL(): " + excep);
+                }
+            }
+        } finally {
+            if (executeData != null) {
+                try {
+                    System.out.println("System: executeSQL(): Transaction will be closed");
+                    executeData.close();
+                } catch(SQLException excep) {
+                    System.err.println(excep);
+                }                
+            }
+            try {
+                System.out.println("System: executeSQL(): AutoCommit() switched on again");
+                mDb.setAutoCommit(true);
+            } catch(SQLException excep) {
+                System.err.println(excep);
+            }                
+        }
+    }
 }

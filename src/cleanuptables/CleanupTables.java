@@ -57,23 +57,23 @@ public class CleanupTables {
     public ArrayList<String[]> getWorklist(String table) {
         ArrayList<String[]> getWorklist = null;
         switch(table) {
-            case "parcour":
-                // getWorklist = new ParcourSpeicher().checkForDuplicates(); 
+            case "Parcour":
+                getWorklist = new ParcourSpeicher().checkForDuplicates(); 
                 break;
-            case "bogen":
+            case "Bogen":
                 getWorklist = new BogenSpeicher().checkForDuplicates(); 
                 break;
-            case "pfeil":
-                // getWorklist = new PfeilSpeicher().checkForDuplicates().clone(); 
+            case "Pfeil":
+                getWorklist = new PfeilSpeicher().checkForDuplicates(); 
                 break;
-            case "schuetzen":
-                // getWorklist = new SchuetzenSpeicher().checkForDuplicates().clone(); 
+            case "Schuetzen":
+                getWorklist = new SchuetzenSpeicher().checkForDuplicates(); 
                 break;
-            case "ziel":
-                // getWorklist = new ZielSpeicher().checkForDuplicates().clone(); 
+            case "Ziel":
+                getWorklist = new ZielSpeicher().checkForDuplicates(); 
                 break;
             default:
-                System.err.println("System: GetWockList(): tablename could not be mapped!");
+                System.err.println("System: GetWockList(): tablename could not be mapped! (" + table +")");
                 break;
         }
         return getWorklist;
