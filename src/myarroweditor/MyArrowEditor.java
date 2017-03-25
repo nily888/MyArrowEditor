@@ -175,6 +175,8 @@ public class MyArrowEditor extends javax.swing.JFrame {
             mapping = new MappingGIDSpeicher().loadMappingGIDDetails(strTable);
             for (int m=0; m< mapping.size(); m++) {
                 
+                Update der lokalen Tabellen fehlt noch
+                
                 new UpdateMobileSpeicher().insertUpdateMobile(
                         mapping.get(m)[0],
                         mapping.get(m)[1],
