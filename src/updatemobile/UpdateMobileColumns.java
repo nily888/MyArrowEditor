@@ -1,7 +1,5 @@
 package updatemobile;
 
-import updatemobile.*;
-
 /**
  * Created by René Düber on 24.03.2017
  */
