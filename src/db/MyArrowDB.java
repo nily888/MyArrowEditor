@@ -1,6 +1,5 @@
 package db;
 
-import bogen.BogenTbl;
 import java.sql.*;
 
 public class MyArrowDB {
@@ -13,7 +12,7 @@ public class MyArrowDB {
 
     private Connection sINSTANCE;
 
-    private static Object sLOCK = "";
+    private static final Object sLOCK = "";
 
     /**
      * Die Datenbank kann nur nach Kenntnis "ihrer" Anwendung

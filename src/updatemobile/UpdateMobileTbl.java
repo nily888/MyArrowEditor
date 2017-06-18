@@ -1,7 +1,5 @@
 package updatemobile;
 
-import updatemobile.*;
-
 /**
  * Created by nily on 14.12.15.
  */
@@ -48,7 +46,7 @@ public class UpdateMobileTbl  implements UpdateMobileColumns {
     /**
      * SQL-Anweisung zur Loeschung aller Pfeile
      */
-    public static final String STMT_UpdateMobile_DELETE = "DELETE " + TABLE_NAME;
+    public static final String STMT_UPDATEMOBILE_DELETE = "DELETE " + TABLE_NAME;
 
     /** Liste aller bekannten Attribute. */
     public static final String[] ALL_COLUMNS = new String[] {

@@ -1,10 +1,8 @@
 package updatemobile;
 
-import updatemobile.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import db.MyArrowDB;
 import java.sql.ResultSet;
